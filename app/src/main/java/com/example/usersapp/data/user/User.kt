@@ -1,6 +1,7 @@
 package com.example.usersapp.data.user
 
-import java.sql.Timestamp
+import java.util.*
+import kotlin.collections.ArrayList
 
 data class User(
     var id: Int,
@@ -16,9 +17,9 @@ data class User(
     var phone: String,
     var address: String,
     var about: String,
-    var registered: Timestamp,
-    var latitude: Long,
-    var longitude: Long,
+    var registered: Date,
+    var latitude: Float,
+    var longitude: Float,
     var tags: ArrayList<String>,
     var friends: ArrayList<Friend>,
     var favouriteFruit: String

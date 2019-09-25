@@ -1,6 +1,5 @@
 package com.example.usersapp.presentation.di.module
 
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -16,7 +15,7 @@ class NetModule {
     @Provides
     @Singleton
     fun provideGsonConverterFactory(): GsonConverterFactory =
-        GsonConverterFactory.create(GsonBuilder().setLenient().create())
+        GsonConverterFactory.create(GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssX").create())
 
     @Provides
     @Singleton
@@ -42,6 +41,6 @@ class NetModule {
     fun provideBaseUrlString(): String = URL
 
     companion object {
-        private const val URL = "https://www.dropbox.com/s/s8g63b149tnbg8x/"
+        private const val URL = "https://raw.githubusercontent.com/bezrukovq/UsersApp/master/json/"
     }
 }

@@ -9,7 +9,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 
 class UserCase(val usersApiService: UsersApiService) {
 
-    fun getUsers(){}
+    var users = ArrayList<User>()
+
+    fun saveUsersToDB(it: List<User>) {
+        users = it as ArrayList<User>
+    }
 
     fun getUsersFromNet(): Single<List<User>> =
         usersApiService.getUsers()

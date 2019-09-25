@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.usersapp.R
 import com.example.usersapp.data.user.User
 
-class UsersAdapter(): RecyclerView.Adapter<UsersHolder>() {
+class UsersAdapter(val onClick : (Int) -> Unit) : RecyclerView.Adapter<UsersHolder>() {
     var users: List<User> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersHolder {
@@ -17,5 +17,5 @@ class UsersAdapter(): RecyclerView.Adapter<UsersHolder>() {
     override fun getItemCount(): Int = users.size
 
     override fun onBindViewHolder(holder: UsersHolder, position: Int) =
-        holder.bind(users[position])
+        holder.bind(users[position],onClick)
 }

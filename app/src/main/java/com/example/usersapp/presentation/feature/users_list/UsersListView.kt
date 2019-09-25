@@ -5,4 +5,5 @@ import com.example.usersapp.data.user.User
 
 interface UsersListView: MvpView {
     fun setList(list: List<User>)
+    fun showError(error: String)
 }
