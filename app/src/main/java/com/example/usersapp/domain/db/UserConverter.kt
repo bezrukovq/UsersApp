@@ -31,5 +31,4 @@ class UserConverter {
     @TypeConverter
     fun toFriends(friends: String): ArrayList<Friend> =
         Gson().fromJson(friends, object : TypeToken<List<Friend>>() {}.type)
-
 }

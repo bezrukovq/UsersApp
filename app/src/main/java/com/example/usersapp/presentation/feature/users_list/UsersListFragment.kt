@@ -13,10 +13,12 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.usersapp.R
 import com.example.usersapp.UsersApplication
 import com.example.usersapp.data.user.User
+import com.example.usersapp.presentation.feature.profile.ProfileFragment
 import kotlinx.android.synthetic.main.fragment_users_list.*
 import javax.inject.Inject
 
-class UsersListFragment : MvpAppCompatFragment(), SwipeRefreshLayout.OnRefreshListener, UsersListView {
+class UsersListFragment : MvpAppCompatFragment(), SwipeRefreshLayout.OnRefreshListener,
+    UsersListView {
 
     private var adapter: UsersAdapter = UsersAdapter { x -> openUser(x) }
 
@@ -64,9 +66,14 @@ class UsersListFragment : MvpAppCompatFragment(), SwipeRefreshLayout.OnRefreshLi
 
     override fun showError(error: String) {
         Toast.makeText(activity, error, Toast.LENGTH_LONG).show()
+        swipe_refresh.isRefreshing = false
     }
 
     private fun openUser(id: Int) {
-        Toast.makeText(activity, id.toString(), Toast.LENGTH_LONG).show()
+        activity?.supportFragmentManager
+            ?.beginTransaction()
+            ?.replace(R.id.container, ProfileFragment.newInstance(id))
+            ?.addToBackStack(null)
+            ?.commit()
     }
 }

@@ -12,11 +12,8 @@ import io.reactivex.rxkotlin.subscribeBy
 
 class UserCase(private val usersApiService: UsersApiService, private val userRepository: UserRepository) {
 
-    var users = ArrayList<User>()
-
     @SuppressLint("CheckResult")
     fun saveUsersToDB(users: List<User>) {
-        this.users = users as ArrayList<User>
         userRepository.deleteAll()
             .subscribeBy(
                 onComplete = { userRepository.insertUsers(users) },
@@ -30,4 +27,7 @@ class UserCase(private val usersApiService: UsersApiService, private val userRep
 
     fun getUsersFromDB(): Single<List<User>> =
         userRepository.getUsers()
+
+    fun getUserById(id:Int): Single<User> =
+        userRepository.getUserById(id)
 }

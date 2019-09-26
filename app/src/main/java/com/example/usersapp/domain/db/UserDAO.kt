@@ -12,6 +12,9 @@ interface UserDAO {
     @Query("select * from user")
     fun getUsersList(): Single<List<User>>
 
+    @Query("select * from user where id =(:id)")
+    fun getUserById(id:Int): Single<User>
+
     @Insert
     fun insertUsers(city: List<User>)
 

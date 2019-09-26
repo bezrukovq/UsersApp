@@ -37,7 +37,8 @@ class UsersListPresenter
                 if (it.isNotEmpty())
                     viewState.setList(it)
                 else{
-                    viewState.showError("No cached data")
+                    viewState.showError("No cached data, loading from Net")
+                    loadFromNet()
                 }
             },
             onError = {

@@ -6,7 +6,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class UserRepository(val userDAO: UserDAO) {
+class UserRepository(private val userDAO: UserDAO) {
 
     fun deleteAll() =
         Completable.fromAction { userDAO.deleteAll() }
@@ -15,6 +15,11 @@ class UserRepository(val userDAO: UserDAO) {
 
     fun getUsers(): Single<List<User>> =
         userDAO.getUsersList()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    fun getUserById(id: Int): Single<User> =
+        userDAO.getUserById(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
