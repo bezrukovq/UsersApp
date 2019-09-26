@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.users_list_item.view.*
 class UsersHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(user: User, onClick: (Int) -> Unit) {
         itemView.tv_name.text = user.name
-        itemView.tv_email.text = user.email
+        itemView.tv_email.text = user.registered.toString()
         if (user.isActive) {
             itemView.active.setImageResource(R.drawable.ic_active_true_24dp)
             itemView.setOnClickListener { onClick(user.id) }

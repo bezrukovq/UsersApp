@@ -15,7 +15,7 @@ class NetModule {
     @Provides
     @Singleton
     fun provideGsonConverterFactory(): GsonConverterFactory =
-        GsonConverterFactory.create(GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssX").create())
+        GsonConverterFactory.create(GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create())
 
     @Provides
     @Singleton

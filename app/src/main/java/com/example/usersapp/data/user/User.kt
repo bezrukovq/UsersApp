@@ -1,9 +1,16 @@
 package com.example.usersapp.data.user
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.example.usersapp.domain.db.UserConverter
 import java.util.*
 import kotlin.collections.ArrayList
 
+@Entity(tableName = "user")
+@TypeConverters(UserConverter::class)
 data class User(
+    @PrimaryKey
     var id: Int,
     var guid: String,
     var isActive: Boolean,
@@ -22,5 +29,5 @@ data class User(
     var longitude: Float,
     var tags: ArrayList<String>,
     var friends: ArrayList<Friend>,
-    var favouriteFruit: String
+    var favoriteFruit: String
 )

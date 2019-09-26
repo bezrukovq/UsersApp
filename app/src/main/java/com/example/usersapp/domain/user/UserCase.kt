@@ -1,18 +1,26 @@
 package com.example.usersapp.domain.user
 
+import android.annotation.SuppressLint
 import com.example.usersapp.data.user.User
 import com.example.usersapp.domain.api.UsersApiService
+import com.example.usersapp.domain.db.UserRepository
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.subscribeBy
 
 
-class UserCase(val usersApiService: UsersApiService) {
+class UserCase(private val usersApiService: UsersApiService, private val userRepository: UserRepository) {
 
     var users = ArrayList<User>()
 
-    fun saveUsersToDB(it: List<User>) {
-        users = it as ArrayList<User>
+    @SuppressLint("CheckResult")
+    fun saveUsersToDB(users: List<User>) {
+        this.users = users as ArrayList<User>
+        userRepository.deleteAll()
+            .subscribeBy(
+                onComplete = { userRepository.insertUsers(users) },
+                onError = {})
     }
 
     fun getUsersFromNet(): Single<List<User>> =
@@ -20,5 +28,6 @@ class UserCase(val usersApiService: UsersApiService) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
 
-    fun getUsersFromDB(){}
+    fun getUsersFromDB(): Single<List<User>> =
+        userRepository.getUsers()
 }

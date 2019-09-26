@@ -1,5 +1,6 @@
 package com.example.usersapp.presentation.di.component
 
+import com.example.usersapp.presentation.di.module.DBModule
 import com.example.usersapp.presentation.di.module.NetModule
 import com.example.usersapp.presentation.di.module.ServiceModule
 import com.example.usersapp.presentation.di.module.UserModule
@@ -8,7 +9,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [NetModule::class, ServiceModule::class,UserModule::class])
+@Component(modules = [NetModule::class, ServiceModule::class,UserModule::class,DBModule::class])
 interface AppComponent {
     fun inject(fragment: UsersListFragment)
 

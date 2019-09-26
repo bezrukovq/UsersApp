@@ -15,7 +15,7 @@ class UsersListPresenter
     private val compositeDisposable = CompositeDisposable()
 
     override fun onFirstViewAttach() {
-        loadFromNet()
+        loadFromDB()
     }
 
     fun loadFromNet() {
@@ -28,6 +28,23 @@ class UsersListPresenter
                 Log.i("ERROR LOADING", it.message.toString())
                 viewState.showError(it.message.toString())
             })
+        compositeDisposable.add(disposable)
+    }
+
+    private fun loadFromDB() {
+        val disposable = userCase.getUsersFromDB().subscribeBy(
+            onSuccess = {
+                if (it.isNotEmpty())
+                    viewState.setList(it)
+                else{
+                    viewState.showError("No cached data")
+                }
+            },
+            onError = {
+                viewState.showError(it.message.toString())
+                loadFromNet()
+            }
+        )
         compositeDisposable.add(disposable)
     }
 
